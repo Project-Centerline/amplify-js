@@ -38,7 +38,7 @@ const USER_AGENT_HEADER = 'x-amz-user-agent';
 
 export type GetObjectInput = Pick<
 	GetObjectCommandInput,
-	'Bucket' | 'Key' | 'Range'
+	'Bucket' | 'Key' | 'Range' | 'ResponseContentDisposition'
 >;
 
 export type GetObjectOutput = GetObjectCommandOutput;
@@ -50,6 +50,13 @@ const getObjectSerializer = async (
 	const url = new AmplifyUrl(endpoint.url.toString());
 	validateS3RequiredParameter(!!input.Key, 'Key');
 	url.pathname = serializePathnameObjectKey(url, input.Key);
+
+	if (input.ResponseContentDisposition) {
+		url.searchParams.set(
+			'response-content-disposition',
+			input.ResponseContentDisposition,
+		);
+	}
 
 	return {
 		method: 'GET',

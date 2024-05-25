@@ -114,6 +114,16 @@ export type GetUrlOptions = CommonOptions & {
 	 * @default 900 (15 minutes)
 	 */
 	expiresIn?: number;
+	/**
+	 * Override response headers
+	 * @default no changes
+	 */
+	overrideResponseHeaders?: {
+		/**
+		 * <p>Sets the <code>Content-Disposition</code> header of the response</p>
+		 */
+		contentDisposition?: string;
+	};
 };
 
 /** @deprecated Use {@link GetUrlOptionsWithPath} instead. */
